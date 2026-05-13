@@ -1,5 +1,5 @@
 {
-  "context": "Tests whether the agent recognises a Java-style value class (manual equals/hashCode/toString, Java-bean accessors, var properties) and refactors it to the idiomatic Kotlin shape — data class, val properties, no manual override of standard object methods, no bean accessors. Field order must be preserved so positional construction at call sites still compiles. Exercises K-1 (prefer-val), K-3 (use-data-class), and the pojoify-to-dataclass skill's workflow.",
+  "context": "Checks whether the agent refactors a Java-style value class (manual equals/hashCode/toString, Java-bean accessors, var properties) into the idiomatic Kotlin shape: data class, val properties, no manual override of standard object methods, no bean accessors. Field order must be preserved so positional construction at call sites still compiles.",
   "type": "weighted_checklist",
   "checklist": [
     {

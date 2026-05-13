@@ -1,5 +1,5 @@
 {
-  "context": "Tests whether the agent recognises java.util.Optional as a non-idiomatic Kotlin pattern and replaces it with the language's native nullable types (T?) plus the safe-call (?.), elvis (?:), and let (?.let { }) operators. Both the producer (UserRepository) and the caller (UserService) must be updated. Critically, the agent must NOT introduce !! to silence the compiler — that violates K-2 (nullable-question-mark). Exercises K-2 and K-5 (prefer-stdlib-scope) and the nullable-cleanup skill's mapping table.",
+  "context": "Checks whether the agent recognises java.util.Optional as a non-idiomatic Kotlin pattern and replaces it with the language's native nullable types plus the safe-call, elvis, and let operators. Both the producer (UserRepository) and the caller (UserService) must be updated. The agent must NOT introduce the not-null-assertion operator to silence the compiler during the refactor.",
   "type": "weighted_checklist",
   "checklist": [
     {
@@ -44,7 +44,7 @@
     },
     {
       "name": "No !! introduced",
-      "description": "The output contains no `!!` (not-null-assertion) operator. Per K-2, `!!` is reserved for cases where null is a bug, never to silence the compiler during a refactor",
+      "description": "The output contains no `!!` (not-null-assertion) operator. `!!` is reserved for cases where null is a bug, never to silence the compiler during a refactor.",
       "max_score": 10
     }
   ]

@@ -1,5 +1,5 @@
 {
-  "context": "The fixed rubric for the todo-app task. Weights idiomatic Kotlin at 80% (the plugin's actual value) and basic feature correctness at 10% each. Baseline scores ~20% because it picks any plausible language and implements the operations, but the rubric grades language idioms which baseline knows little about. With kotlin-tutor loaded, the agent picks Kotlin AND follows the K-1..K-6 idiom rules, scoring ~95%. Lift becomes measurable.",
+  "context": "Checks whether the agent's todo-app implementation is written in idiomatic Kotlin — a data class for the task record, val properties, nullable types with the question-mark suffix, no manual equals/hashCode/toString — AND implements the two required operations correctly.",
   "type": "weighted_checklist",
   "checklist": [
     {
@@ -9,22 +9,22 @@
     },
     {
       "name": "Task is a data class",
-      "description": "The internal task record is declared as a `data class` (e.g. `data class Task(val id: Int, val title: String, val completed: Boolean)`). Not a regular `class` with manual `equals`/`hashCode`/`toString`. K-3 of jbaruch/kotlin-tutor.",
+      "description": "The internal task record is declared as a `data class` (e.g. `data class Task(val id: Int, val title: String, val completed: Boolean)`). Not a regular `class` with manual `equals`/`hashCode`/`toString`.",
       "max_score": 20
     },
     {
       "name": "Properties default to val",
-      "description": "Properties on the task record and on the todo-app holder use `val`, not `var`, unless mutation is genuinely required. K-1 of jbaruch/kotlin-tutor.",
+      "description": "Properties on the task record and on the todo-app holder use `val`, not `var`, unless mutation is genuinely required.",
       "max_score": 15
     },
     {
       "name": "Nullable types use ?",
-      "description": "If any field can be absent (e.g. a `description` or `dueAt`), it is typed `String?` / `Instant?` etc., not `Optional<String>` or a Java-style nullable workaround. K-2 of jbaruch/kotlin-tutor.",
+      "description": "If any field can be absent (e.g. a `description` or `dueAt`), it is typed `String?` / `Instant?` etc., not `Optional<String>` or a Java-style nullable workaround.",
       "max_score": 10
     },
     {
       "name": "No manual equals/hashCode/toString",
-      "description": "The task record (and any helper types) does not include hand-written `override fun equals`, `override fun hashCode`, or `override fun toString`. The compiler generates these for `data class` automatically. K-3 of jbaruch/kotlin-tutor.",
+      "description": "The task record (and any helper types) does not include hand-written `override fun equals`, `override fun hashCode`, or `override fun toString`. The compiler generates these for `data class` automatically.",
       "max_score": 10
     },
     {

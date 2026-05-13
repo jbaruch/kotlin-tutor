@@ -1,5 +1,5 @@
 {
-  "context": "Identical rubric to trial-1 — grades features only, no language idiom checks. Combined with the language-neutral task (no 'in Kotlin' leak), baseline still scores 100% because the rubric checks behavior any competent agent produces in any language. Demonstrates that fixing the bleed in the task alone is not enough — the rubric also has to test what the plugin teaches.",
+  "context": "Checks whether the agent implements a working todo app: addTask adds a task to the list, markComplete marks a previously-added task as complete.",
   "type": "weighted_checklist",
   "checklist": [
     {

@@ -2,6 +2,20 @@
 
 All notable changes to `jbaruch/kotlin-tutor` are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] — 2026-05-13
+
+### Fixed
+
+Cleaned several leaks in the `trial-*` scenarios that were silently coupling baseline to with-plugin scores by tipping the agent off about the expected output:
+
+- Task bodies declared operations using Kotlin type-annotation syntax (`addTask(title: String)`, `markComplete(id: Int)`); rewritten as prose so the task no longer hints at a language
+- Output specifications said `output/TodoApp.kt`; changed to `output/TodoApp.<ext>` so the file extension follows the agent's language choice rather than dictating it
+- Each `task.md` ended with a long trailing blockquote describing the scenario's design rationale, which the agent reads as part of its task context; removed
+- `scenario.json` descriptions previously described the rubric mechanics, which can surface in agent context depending on how the eval host packages the scenario; trimmed to a neutral one-line summary
+- Several `criteria.json` checklist descriptions referenced internal rule identifiers; replaced with descriptions of the criterion's content alone
+
+`trial-1` retains the explicit language-name leak in its task; that is the intended distinguishing feature versus `trial-2`. The trial-1 → trial-2 diff is now solely the one phrase that should differ.
+
 ## [0.3.0] — 2026-05-13
 
 ### Added
