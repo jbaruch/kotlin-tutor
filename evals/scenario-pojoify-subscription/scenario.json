@@ -1,0 +1,1 @@
+{ "description": "POJO refactor: Java-style class with manual equals/hashCode/toString and bean accessors → idiomatic Kotlin value type", "include": ["./inputs"] }

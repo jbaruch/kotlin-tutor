@@ -43,12 +43,14 @@ tessl install jbaruch/kotlin-tutor
 
 ### Eval Scenarios
 
-| Scenario | Purpose |
-|----------|---------|
-| scenario-0, scenario-1, scenario-2 | Real evals for the three skills (auto-generated from the tile, curated to remove bleeding) |
-| trial-1-task-leaks-language | **Pedagogical** — slide-59 demo, task leaks language, baseline 100% |
-| trial-2-rubric-grades-features | **Pedagogical** — slide-59 demo, rubric still grades features only, baseline still 100% |
-| trial-3-rubric-weights-language | **Pedagogical** — slide-59 demo, rubric weights idiomatic Kotlin 80%, lift becomes measurable |
+| Scenario | Targets skill | Purpose |
+|----------|---------------|---------|
+| scenario-0, scenario-1, scenario-2 | kotlinify-tests | Real evals (auto-generated, curated to remove bleeding) |
+| scenario-pojoify-subscription | pojoify-to-dataclass | Java-style POJO → idiomatic data class refactor |
+| scenario-nullable-user-service | nullable-cleanup | `Optional<T>` API → Kotlin nullable types, caller updated alongside |
+| trial-1-task-leaks-language | — | **Pedagogical** — slide-59 demo, task leaks language, baseline 100% |
+| trial-2-rubric-grades-features | — | **Pedagogical** — slide-59 demo, rubric still grades features only, baseline still 100% |
+| trial-3-rubric-weights-language | — | **Pedagogical** — slide-59 demo, rubric weights idiomatic Kotlin 80%, lift becomes measurable |
 
 The pedagogical scenarios are intentionally bad eval design — they ship publicly so audiences of the talk "You're Absolutely Right (and Other Lies My AI Told Me)" can browse them in the registry and see why the failures land at 100% / 100% / ~20%-then-~95%.
 

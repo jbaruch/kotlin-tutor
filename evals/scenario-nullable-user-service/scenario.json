@@ -1,0 +1,1 @@
+{ "description": "Optional API cleanup: Kotlin repository returning Optional<T> and using orElse/ifPresent/map/orElseThrow → idiomatic Kotlin nullable types with safe-call, elvis, and let. Caller code must be updated alongside.", "include": ["./inputs"] }

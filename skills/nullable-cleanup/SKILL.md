@@ -1,12 +1,13 @@
 ---
 name: nullable-cleanup
 description: >
-  Replace `Optional<T>` / `Optional.of` / `Optional.empty` / `Optional.ofNullable`
-  with idiomatic Kotlin nullable types (`T?`) and the `?.` / `?:` / `?.let { }`
+  Replace java.util.Optional usage (Optional.of, Optional.empty,
+  Optional.ofNullable, orElse, ifPresent, etc.) with idiomatic Kotlin nullable
+  types using the question-mark suffix and the safe-call, elvis, and let
   operators. Strips Java's Optional workaround out of Kotlin code where the
   language has a better answer. Use when the user asks to "remove Optional,"
-  "kotlinify nullables," or shows code that wraps nullable values in Optional
-  for no benefit.
+  "kotlinify nullables," "strip Optional wrappers," or shows code that wraps
+  nullable values in Optional for no benefit.
 ---
 
 # Nullable Cleanup

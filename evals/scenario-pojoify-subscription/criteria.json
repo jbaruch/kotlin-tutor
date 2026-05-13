@@ -1,0 +1,36 @@
+{
+  "context": "Tests whether the agent recognises a Java-style value class (manual equals/hashCode/toString, Java-bean accessors, var properties) and refactors it to the idiomatic Kotlin shape — data class, val properties, no manual override of standard object methods, no bean accessors. Field order must be preserved so positional construction at call sites still compiles. Exercises K-1 (prefer-val), K-3 (use-data-class), and the pojoify-to-dataclass skill's workflow.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Declared as data class",
+      "description": "The output declares `data class Subscription(...)` with a primary constructor — not a regular `class Subscription { ... }`",
+      "max_score": 25
+    },
+    {
+      "name": "Properties use val",
+      "description": "Every property in the primary constructor uses `val` (not `var`). The output has no `var` declarations on the Subscription type",
+      "max_score": 15
+    },
+    {
+      "name": "No manual equals/hashCode/toString",
+      "description": "The output contains no `override fun equals(...)`, `override fun hashCode()`, or `override fun toString()` — the compiler generates them for data classes",
+      "max_score": 20
+    },
+    {
+      "name": "No Java-bean accessors",
+      "description": "The output contains no `fun getX(...)`, `fun setX(...)`, or `fun isX(...)` method declarations. Property access uses Kotlin's auto-generated accessors instead",
+      "max_score": 15
+    },
+    {
+      "name": "Field order preserved",
+      "description": "The primary constructor parameters appear in this exact order: subscriptionId, planCode, status, billingPeriodMonths, autoRenew, createdAtEpochMillis, renewsAtEpochMillis. This preserves componentN() destructuring for any callers that relied on it",
+      "max_score": 15
+    },
+    {
+      "name": "All seven fields retained",
+      "description": "All seven fields from the original class are present in the new data class — none accidentally dropped during refactor",
+      "max_score": 10
+    }
+  ]
+}

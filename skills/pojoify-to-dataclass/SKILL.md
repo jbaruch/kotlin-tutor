@@ -14,6 +14,37 @@ description: >
 
 Process steps in order. Do not skip ahead.
 
+## Before / After Example
+
+**Before (Java-style POJO):**
+```kotlin
+class Customer {
+    var customerId: String? = null
+    var email: String? = null
+
+    fun getCustomerId(): String? = customerId
+    fun setCustomerId(value: String?) { customerId = value }
+    fun getEmail(): String? = email
+    fun setEmail(value: String?) { email = value }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Customer) return false
+        return customerId == other.customerId && email == other.email
+    }
+    override fun hashCode(): Int = 31 * (customerId?.hashCode() ?: 0) + (email?.hashCode() ?: 0)
+    override fun toString(): String = "Customer(customerId=$customerId, email=$email)"
+}
+```
+
+**After (idiomatic Kotlin):**
+```kotlin
+data class Customer(
+    val customerId: String? = null,
+    val email: String? = null
+)
+```
+
 ## Step 1 — Verify The Class Is A Value Type
 
 A class is a candidate when it has all of:
@@ -33,22 +64,22 @@ If any of these are missing, stop and report what you found. Not every class wit
 ## Step 3 — Rewrite The Class Declaration
 
 - Change `class Foo { val a: String; val b: Int; … }` to `data class Foo(val a: String, val b: Int)`
-- Convert any `var` to `val` UNLESS the field has a documented reason to mutate (rare; flag any retained `var` in the conversion summary)
+- Convert any `var` to `val` UNLESS the field has a documented reason to mutate (flag any retained `var` in the conversion summary)
 - Move computed properties (`val derived: T get() = …`) into the class body, after the primary constructor
-- If a field had a custom getter that did real work (validation, lazy init), preserve it in the class body, but flag for human review — data class generated equality reads the constructor-declared property
+- If a field had a custom getter that did real work (validation, lazy init), preserve it in the class body and flag for human review — data class generated equality reads the constructor-declared property
 
 ## Step 4 — Remove The Manually-Overridden Methods
 
-- Delete the body of the class's `equals`, `hashCode`, `toString` — the compiler generates them now
-- If `toString` was overridden to MASK a sensitive field (passwords, tokens), keep ONLY `toString` as a manual override — delete `equals` and `hashCode`, those are safe to auto-generate
-- Remove `init` blocks that only validated equality contract assumptions; the compiler handles that
-- Remove Java-bean getX / setX methods if they exist — Kotlin generates them from `val` / `var` properties
+- Delete `equals`, `hashCode`, and `toString` — the compiler generates them now
+- If `toString` was overridden to MASK a sensitive field (passwords, tokens), keep ONLY `toString` as a manual override and delete `equals` and `hashCode`
+- Remove `init` blocks that only validated equality contract assumptions
+- Remove Java-bean getX / setX methods if they exist
 
 ## Step 5 — Update Callers If Needed
 
 - Glob the codebase for callers using setX methods on this type — those won't compile anymore
-- Replace `foo.setX(value)` with `foo.copy(x = value)` — this is the idiomatic mutation pattern (see rule `use-data-class`)
-- Replace `Foo(a, b)` callers that relied on positional construction — they keep working IF Step 2 preserved field order
+- Replace `foo.setX(value)` with `foo.copy(x = value)` — the idiomatic mutation pattern from rule `use-data-class`
+- Positional construction (`Foo(a, b)`) keeps working if Step 2 preserved field order
 
 ## Step 6 — Run The Tests
 

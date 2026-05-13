@@ -1,0 +1,51 @@
+{
+  "context": "Tests whether the agent recognises java.util.Optional as a non-idiomatic Kotlin pattern and replaces it with the language's native nullable types (T?) plus the safe-call (?.), elvis (?:), and let (?.let { }) operators. Both the producer (UserRepository) and the caller (UserService) must be updated. Critically, the agent must NOT introduce !! to silence the compiler — that violates K-2 (nullable-question-mark). Exercises K-2 and K-5 (prefer-stdlib-scope) and the nullable-cleanup skill's mapping table.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "No java.util.Optional import",
+      "description": "Neither output file contains `import java.util.Optional`. The Optional type is no longer referenced",
+      "max_score": 10
+    },
+    {
+      "name": "findById returns User?",
+      "description": "`findById` is declared with return type `User?` (or equivalent nullable syntax) — not `Optional<User>`",
+      "max_score": 15
+    },
+    {
+      "name": "findByEmail returns User?",
+      "description": "`findByEmail` is declared with return type `User?` and its body returns either the matching user or `null` directly — no Optional.of / Optional.empty wrapping",
+      "max_score": 10
+    },
+    {
+      "name": "displayNameFor uses elvis",
+      "description": "`displayNameFor` in the repository uses the elvis operator `?:` to provide the 'Anonymous' fallback. No `.orElse(...)` call appears anywhere in the output",
+      "max_score": 10
+    },
+    {
+      "name": "sendWelcome uses ?.let",
+      "description": "`sendWelcome` uses `?.let { … }` (or `?.` directly) for the conditional mailer call. No `.ifPresent { … }` call appears in the output",
+      "max_score": 10
+    },
+    {
+      "name": "requireById uses elvis throw",
+      "description": "`requireById` uses the `?: throw NoSuchElementException(...)` pattern. No `.orElseThrow { ... }` call appears in the output",
+      "max_score": 10
+    },
+    {
+      "name": "Optional.map replaced with ?.let",
+      "description": "Every `.map { … }` call on an Optional value is replaced with `?.let { … }` (or a direct property access via `?.`)",
+      "max_score": 10
+    },
+    {
+      "name": "UserService caller updated",
+      "description": "`UserService.greet`, `UserService.emailIfPresent`, and `UserService.displayNameOrFallback` all compile against the new nullable-returning repository API — they use `?.let` / `?:` patterns, not `.map` / `.orElse` / `.ifPresent`",
+      "max_score": 15
+    },
+    {
+      "name": "No !! introduced",
+      "description": "The output contains no `!!` (not-null-assertion) operator. Per K-2, `!!` is reserved for cases where null is a bug, never to silence the compiler during a refactor",
+      "max_score": 10
+    }
+  ]
+}
