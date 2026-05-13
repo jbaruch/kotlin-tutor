@@ -1,0 +1,56 @@
+{
+  "context": "Tests whether the agent correctly maps all JUnit 5 assertion types to their Kotest equivalents when converting a test file, including the argument-order reversal for assertEquals and the withClue pattern for assertions with messages.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "assertEquals order",
+      "description": "assertEquals(7, result) is converted to 'result shouldBe 7' (actual on left, expected on right) — NOT '7 shouldBe result'",
+      "max_score": 14
+    },
+    {
+      "name": "withClue for message",
+      "description": "assertEquals(6, result, \"ten minus four should be six\") is converted using withClue(\"ten minus four should be six\") { result shouldBe 6 }",
+      "max_score": 14
+    },
+    {
+      "name": "shouldThrow",
+      "description": "assertThrows<ArithmeticException> { } is converted to shouldThrow<ArithmeticException> { }",
+      "max_score": 12
+    },
+    {
+      "name": "shouldBeTrue",
+      "description": "assertTrue(result > 0) is converted to (result > 0).shouldBeTrue() or (result > 0) shouldBe true",
+      "max_score": 10
+    },
+    {
+      "name": "shouldBeFalse",
+      "description": "assertFalse(result < 0) is converted to (result < 0).shouldBeFalse() or (result < 0) shouldBe false",
+      "max_score": 10
+    },
+    {
+      "name": "shouldBeNull",
+      "description": "assertNull(result) is converted to result.shouldBeNull()",
+      "max_score": 10
+    },
+    {
+      "name": "shouldNotBeNull",
+      "description": "assertNotNull(result) is converted to result.shouldNotBeNull()",
+      "max_score": 10
+    },
+    {
+      "name": "JUnit imports removed",
+      "description": "No import lines from org.junit.* remain in the output file",
+      "max_score": 10
+    },
+    {
+      "name": "Kotest imports added",
+      "description": "At least one import from io.kotest.* is present (e.g. io.kotest.matchers.shouldBe)",
+      "max_score": 8
+    },
+    {
+      "name": "Imports sorted",
+      "description": "All import statements in the output file are sorted alphabetically",
+      "max_score": 2
+    }
+  ]
+}

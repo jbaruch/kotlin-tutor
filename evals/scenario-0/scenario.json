@@ -1,0 +1,1 @@
+{ "description": "JUnit assertion mapping to Kotest equivalents", "include": ["./inputs"] }

@@ -1,0 +1,46 @@
+{
+  "context": "Tests whether the agent discovers JUnit test files via globbing, converts them all, runs the provided verification script as the completion gate, and documents the process correctly without committing changes.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Both files converted",
+      "description": "Both AccountTest.kt and PaymentTest.kt in src/test/kotlin/com/example/ have been modified — no JUnit assertion calls (assertEquals, assertTrue, assertThrows, assertNotNull) remain in either file",
+      "max_score": 15
+    },
+    {
+      "name": "Kotest assertions used",
+      "description": "Kotest-style assertions (shouldBe, shouldThrow, shouldNotBeNull, shouldBeTrue, etc.) are present in the converted files",
+      "max_score": 10
+    },
+    {
+      "name": "No JUnit imports remain",
+      "description": "No import org.junit.* lines remain in any converted file",
+      "max_score": 10
+    },
+    {
+      "name": "Verify script executed",
+      "description": "conversion-report.md explicitly states that scripts/verify-no-junit-assertions.sh was run (not merely mentioned as something to do)",
+      "max_score": 20
+    },
+    {
+      "name": "Script exit code documented",
+      "description": "conversion-report.md records the exit code or outcome (e.g. 'exit 0', 'OK', 'clean') from the verify script's final run",
+      "max_score": 15
+    },
+    {
+      "name": "File list in report",
+      "description": "conversion-report.md lists the specific files that were identified and converted",
+      "max_score": 10
+    },
+    {
+      "name": "Files found via glob",
+      "description": "conversion-report.md or the conversion itself shows that both files were found by searching src/test/ (not hardcoded individually without discovery)",
+      "max_score": 10
+    },
+    {
+      "name": "No commit performed",
+      "description": "conversion-report.md does NOT reference committing, pushing, or staging files to version control",
+      "max_score": 10
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{ "description": "File discovery, conversion, and verification script gate", "include": ["./inputs"] }

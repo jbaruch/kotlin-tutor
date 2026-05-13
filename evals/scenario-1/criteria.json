@@ -1,0 +1,46 @@
+{
+  "context": "Tests whether the agent selects the correct Kotest spec style based on each test file's structure, defaults to StringSpec for flat tests rather than escalating unnecessarily, and correctly replaces JUnit lifecycle annotations with Kotest equivalents.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "StringSpec for flat tests",
+      "description": "StringFormatterTest is converted to StringSpec (not DescribeSpec or BehaviorSpec)",
+      "max_score": 16
+    },
+    {
+      "name": "BehaviorSpec for given/when/then",
+      "description": "UserServiceTest is converted to BehaviorSpec (not StringSpec or DescribeSpec)",
+      "max_score": 16
+    },
+    {
+      "name": "Tests in string blocks",
+      "description": "@Test fun methodName() is replaced with a string-keyed block — \"methodName\" { } — inside the spec body in both files",
+      "max_score": 12
+    },
+    {
+      "name": "beforeEach block used",
+      "description": "StringFormatterTest's @BeforeEach setUp() is replaced with a Kotest beforeEach { } block inside the spec body (not a separate method with @BeforeEach)",
+      "max_score": 16
+    },
+    {
+      "name": "Setup code preserved",
+      "description": "The initialization code (formatter = StringFormatter(locale = \"en-US\")) is present inside the beforeEach { } block",
+      "max_score": 10
+    },
+    {
+      "name": "Correct class declaration",
+      "description": "Each class declaration extends the chosen spec style using Kotest constructor syntax (e.g. : StringSpec({ }), : BehaviorSpec({ }))",
+      "max_score": 12
+    },
+    {
+      "name": "Kotest spec import present",
+      "description": "Each output file imports its spec class from io.kotest.core.spec.style.* (StringSpec or BehaviorSpec as appropriate)",
+      "max_score": 10
+    },
+    {
+      "name": "JUnit annotations removed",
+      "description": "No @Test, @BeforeEach, or @AfterEach annotations remain in either output file",
+      "max_score": 8
+    }
+  ]
+}
