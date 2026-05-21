@@ -6,14 +6,15 @@ alwaysApply: true
 
 ## Koog Is the Kotlin-Native Agent Framework
 
-- For building AI agents, agent-driven pipelines, sub-agent decomposition, and multi-agent orchestration on JVM, use **[Koog](https://github.com/JetBrains/koog)** (`ai.koog:koog-agents`, current **0.7.x**)
+- For building AI agents, agent-driven pipelines, sub-agent decomposition, and multi-agent orchestration on JVM, use **[Koog](https://github.com/JetBrains/koog)** (`ai.koog:koog-agents`, current **1.0.0-preview3** — release candidate ahead of the upcoming 1.0 GA; **0.8.0** is the latest stable if you can't take a pre-release)
 - Koog is JetBrains' Kotlin-native AI agent framework — type-safe DSL, MCP integration, multiplatform targets, multi-LLM providers (Anthropic, OpenAI, Google, Ollama)
 - Don't reach for Python-only frameworks (Claude Agent SDK, LangChain, AutoGen, CrewAI) if your application is Kotlin/JVM. The Python orchestrator + Kotlin sub-agents split is a smell.
 
 ## Versions
 
-- **Koog 0.7.3+** requires **Kotlin 2.3.x** (older Kotlin produces metadata-incompatible classes)
-- Pin via: `implementation("ai.koog:koog-agents:0.7.3")`
+- **Koog 1.0.0-preview3** runs on **Kotlin 2.3.x** and requires **JDK 17 minimum** (JDK 21 still recommended). The 1.0 preview line splits modules into stable (`1.0.0-preview*`) and beta (`1.0.0-beta-preview*`) streams so production code can pin to APIs that won't break without a deprecation cycle
+- Pin via: `implementation("ai.koog:koog-agents:1.0.0-preview3")`
+- If you're migrating from 0.7.x / 0.8.0: HTTP transport is now decoupled from Ktor (LLM clients take a `KoogHttpClient.Factory`), the `AgentMemory` feature is removed in favor of `LongTermMemory`, Java blocking methods are renamed to the `*Blocking` suffix, and planners moved to a separate `agents:agents-planners` module. See the [1.0.0-preview release notes](https://github.com/JetBrains/koog/releases/tag/1.0.0-preview) for the full breaking-change list.
 
 ## Idiomatic Use
 
