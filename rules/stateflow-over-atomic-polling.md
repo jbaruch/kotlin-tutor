@@ -7,13 +7,15 @@ alwaysApply: true
 ## The Anti-Pattern
 
 - A coroutine that busy-polls an `AtomicReference<T?>` for new values — `while (true) { val x = ref.get(); if (x == null) { delay(20); continue }; ... }` — is Java-in-Kotlin
-- The shape combines `j.u.c.atomic` (a lock-free primitive sized for CAS-heavy contention) with a `delay`-based poll loop (which burns timer ticks and adds latency) for what is actually a single-writer / many-reader signal
+- `j.u.c.atomic` is a lock-free primitive sized for CAS-heavy contention; the busy-poll loop is asking it to do single-writer / many-reader fan-out, which is the wrong shape
+- The `delay`-based poll loop also burns timer ticks and adds latency proportional to the poll interval, neither of which a reactive signal should carry
 
 ## The Idiomatic Replacement
 
 - For single-writer, many-reader state that consumers want to react to, use **`MutableStateFlow<T?>`** (`kotlinx.coroutines.flow.MutableStateFlow`) initialized to `null` when `null` means "no value yet" — the 1:1 replacement for `AtomicReference<T?>`
 - When the state always has a value (a sensible default exists), use `MutableStateFlow<T>` with that default and drop the `filterNotNull()` from the reader
-- Reader side: `latest.filterNotNull().collect { ... }` (nullable variant) or `latest.collect { ... }` (non-null variant) — suspends until the next value, zero CPU when idle, no polling loop
+- Reader side for the nullable variant: `latest.filterNotNull().collect { ... }` — suspends until the next non-null value, zero CPU when idle, no polling loop
+- Reader side for the non-null variant: `latest.collect { ... }` — same suspend semantics, no `filterNotNull()` needed
 - Writer side: `latest.value = newValue` — reads naturally, no `.set(...)` / `.get()` ceremony
 - Conflation is built in: a slow consumer naturally drops intermediate values, which live signals (video frames, sensor readings, status snapshots) want
 
