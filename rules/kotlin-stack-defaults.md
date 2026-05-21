@@ -8,7 +8,7 @@ alwaysApply: true
 
 - **Kotlin 2.3.x** (`kotlin("jvm") version "2.3.0"`) — the latest stable, picks up the type-inference and coroutine fixes that downstream libraries (Koog, Ktor 3.4, kotlinx-coroutines 1.10) build against
 - **JDK 21** (`jvmToolchain(21)`) — the current LTS; required by JavaCV 1.5.13's native libs and recommended by Koog
-- Avoid Kotlin 2.1.x for new projects — Koog ≥ 0.7 (including the 1.0.0-preview line) produces metadata-incompatible classes on it
+- Avoid Kotlin 2.1.x for new projects — Koog ≥ 0.7 (including the 1.0.0-preview line) artifacts are built with newer Kotlin metadata that 2.1.x consumers can't compile against
 
 ## Build System
 
