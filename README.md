@@ -2,7 +2,7 @@
 
 [![tessl](https://img.shields.io/endpoint?url=https%3A%2F%2Fapi.tessl.io%2Fv1%2Fbadges%2Fjbaruch%2Fkotlin-tutor)](https://tessl.io/registry/jbaruch/kotlin-tutor)
 
-Teaches AI coding agents to write idiomatic Kotlin instead of Java-in-a-`.kt`-file — AND to make the right stack choices on JVM. Twelve `alwaysApply` rules cover both the highest-leverage Kotlin idioms and the canonical library + tooling defaults (Kotlin 2.3, JDK 21, Gradle Kotlin DSL, Ktor, coroutines, DJL, JavaCV, Koog). Three skills perform the common conversions, plus a CI script that gates the JUnit-to-Kotest migration deterministically.
+Teaches AI coding agents to write idiomatic Kotlin instead of Java-in-a-`.kt`-file — AND to make the right stack choices on JVM. Thirteen `alwaysApply` rules cover both the highest-leverage Kotlin idioms and the canonical library + tooling defaults (Kotlin 2.3, JDK 21, Gradle Kotlin DSL, Ktor, coroutines, DJL, JavaCV, Koog). Three skills perform the common conversions, plus a CI script that gates the JUnit-to-Kotest migration deterministically.
 
 ## Why This Plugin Exists
 
@@ -21,7 +21,7 @@ tessl install jbaruch/kotlin-tutor
 
 ## What's Included
 
-### Rules (12)
+### Rules (13)
 
 #### Idiom rules — write Kotlin, not Java-in-a-`.kt`
 
@@ -33,6 +33,7 @@ tessl install jbaruch/kotlin-tutor
 | K-4 | [kotest-over-junit](rules/kotest-over-junit.md) | Tests use Kotest matchers and specs, not `assertEquals` and `@Test` |
 | K-5 | [prefer-stdlib-scope](rules/prefer-stdlib-scope.md) | Use `.let` / `.also` / `.apply` over imperative Java patterns |
 | K-6 | [extension-over-util](rules/extension-over-util.md) | Extension functions, not `*Utils` classes with static methods |
+| K-7 | [stateflow-over-atomic-polling](rules/stateflow-over-atomic-polling.md) | `MutableStateFlow<T?>` (or `MutableStateFlow<T>` with a default) for single-writer / many-reader reactive state — not `AtomicReference<T?>` + a `delay`-poll loop |
 
 #### Stack rules — pick Kotlin libraries on JVM, not Python or legacy Java
 
@@ -78,8 +79,8 @@ The `kotlinify-tests` skill demonstrates the script-delegation pattern in miniat
 
 ## Conventions
 
-- All six rules apply per-turn (frontmatter `alwaysApply: true`); agents see them on every prompt
+- All thirteen rules apply per-turn (frontmatter `alwaysApply: true`); agents see them on every prompt
 - Skills are intent-discovered via the trigger phrases in their `description` field
-- Rule IDs (`K-1` through `K-6`) are talk-shorthand for the descriptive filenames; the registry uses the filenames
+- Rule IDs (`K-1` through `K-7`, `S-1` through `S-6`) are talk-shorthand for the descriptive filenames; the registry uses the filenames
 
 See [CHANGELOG.md](CHANGELOG.md) for version history.
