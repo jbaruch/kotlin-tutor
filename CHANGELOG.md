@@ -2,6 +2,17 @@
 
 All notable changes to `jbaruch/kotlin-tutor` are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.7.0] — 2026-05-21
+
+### Added
+
+- **New idiom rule K-7: `stateflow-over-atomic-polling`** — prefer `MutableStateFlow<T>` over `AtomicReference<T?>` + a `delay`-based poll loop for single-writer / many-reader reactive state. Reported in [#5](https://github.com/jbaruch/kotlin-tutor/issues/5) from a Ktor MJPEG-streaming review where the agent had produced the textbook anti-pattern (`while (true) { val x = ref.get(); if (x == null) delay(20); continue }` with `latest.set(...)` in the writer). Rule covers the trigger smell (the busy-poll loop literal), the StateFlow replacement, when `AtomicReference` remains correct (lock-free CAS coordination across non-coroutine threads), and the `@Volatile var` + polling variant of the same anti-pattern
+- Idiom-rule count grows from six to seven; total rule count grows from twelve to thirteen. README rules table, intro paragraph, and Conventions section all updated to reflect K-7 + the new rule total
+
+### Notes
+
+- Issue #5 also flagged two micro-idioms ("hoist `.toByteArray(charset)` to `private val`", "`lateinit var` over `var ... = null` when a `start()` gate exists"). Deferred — too small to anchor their own `alwaysApply` rules at the load this plugin already carries (every front-loaded rule costs context budget on every prompt; 1.2k tokens for `koog-for-agents` is already the largest single line item per `tessl tile lint`). Will revisit if they recur in field reports
+
 ## [0.6.1] — 2026-05-21
 
 ### Fixed
