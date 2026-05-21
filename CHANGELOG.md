@@ -2,6 +2,22 @@
 
 All notable changes to `jbaruch/kotlin-tutor` are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] — 2026-05-21
+
+### Changed
+
+- **Koog version pin bumped from `0.7.3` to `1.0.0-preview3`** in `rules/koog-for-agents.md`. JetBrains had positioned both Kotlin 2.4 GA and Koog 1.0 GA for KotlinConf 2026-05-21 but neither landed in time; `1.0.0-preview3` (2026-05-20) is the latest release candidate ahead of the upcoming 1.0 GA. The 1.0 preview line splits modules into stable (`1.0.0-preview*`) and beta (`1.0.0-beta-preview*`) streams so production code can pin to APIs that won't break without a deprecation cycle. Kotlin guidance stays at 2.3.x — the latest stable Kotlin remains `2.3.21`; Kotlin `2.4.0-RC` exists but no 2.4 GA yet
+- Migration callouts added to `rules/koog-for-agents.md` for consumers coming from 0.7.x / 0.8.0: HTTP transport decoupled from Ktor (`KoogHttpClient.Factory`), `AgentMemory` feature removed in favor of `LongTermMemory`, Java blocking methods renamed to `*Blocking`, planners moved to a separate `agents:agents-planners` module
+- `rules/koog-for-agents.md` now states the JDK floor explicitly — Koog 1.0 sets the minimum at **JDK 17** (JDK 21 still recommended for parity with JavaCV 1.5.13 native libs); the previous rule text implied JDK 21 was required, which was always stricter than Koog actually demanded
+- `rules/kotlin-stack-defaults.md` "avoid Kotlin 2.1.x" guidance updated to cover the Koog 1.0 preview line as well as 0.7
+
+## [0.5.0] — 2026-05-21
+
+### Added
+
+- **Six stack-default rules** covering canonical JVM choices alongside the existing Kotlin-idiom rules: `kotlin-stack-defaults` (S-1), `coroutines-for-concurrency` (S-2), `ktor-for-http` (S-3), `djl-for-jvm-ml` (S-4), `javacv-for-vision` (S-5), `koog-for-agents` (S-6). The plugin now teaches both "write idiomatic Kotlin" AND "pick the right Kotlin library on JVM"
+- Twelve `alwaysApply` rules total (six idiom + six stack); README rules table split into two sub-sections to reflect the two concerns
+
 ## [0.4.0] — 2026-05-13
 
 ### Fixed
