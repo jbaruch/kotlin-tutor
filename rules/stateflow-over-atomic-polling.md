@@ -15,7 +15,7 @@ alwaysApply: true
 - When the state always has a value (a sensible default exists), use `MutableStateFlow<T>` with that default and drop the `filterNotNull()` from the reader
 - Reader side: `latest.filterNotNull().collect { ... }` (nullable variant) or `latest.collect { ... }` (non-null variant) — suspends until the next value, zero CPU when idle, no polling loop
 - Writer side: `latest.value = newValue` — reads naturally, no `.set(...)` / `.get()` ceremony
-- Conflation is built in: a slow consumer naturally drops intermediate values, which is exactly what live signals (video frames, sensor readings, status snapshots) want
+- Conflation is built in: a slow consumer naturally drops intermediate values, which live signals (video frames, sensor readings, status snapshots) want
 
 ## When `AtomicReference` Is Still Right
 
