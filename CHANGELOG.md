@@ -2,6 +2,16 @@
 
 All notable changes to `jbaruch/kotlin-tutor` are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.1] — 2026-05-26
+
+### Added
+
+- **Eval scenarios for `kotlin-api-review`** — three scenarios in `evals/` covering the skill's two main exposure levels plus the new cross-skill caveat:
+  - `scenario-api-review-published-library` — published Maven Central library with `data class`, default args, implicit return types, and missing KDoc. Grades Step 1 (backward compatibility) prescriptions: `data class` on public surface, the `$default` synthetic risk on default args, Explicit API mode, Binary Compatibility Validator, the Warning→Error→Hidden→Removal deprecation cycle, no-auto-apply of breaking changes, plus the Step 10 `file:line` report format. Baseline 75/100 — the skill should close the Explicit API mode, deprecation cycle, KDoc, and report-format gaps
+  - `scenario-api-review-internal-service` — internal `CacheService` with boolean args, exposed `MutableList`, mixed throw/return-null error handling, missing test seam, missing `toString`/KDoc, naming drift. Grades Steps 3–7, 9, 10 (predictability, readability, consistency, debuggability, testability, documentation). Baseline 67/100 — biggest available lift is on `toString`, KDoc, file:line format, and input validation
+  - `scenario-pojoify-public-api-caveat` — internal POJO conversion that requires the agent to acknowledge the public-API exception now wired into `pojoify-to-dataclass` before converting. Tests the new cross-skill caveat handoff added in 0.8.0
+- **`pojoify-public-api-caveat` baseline is 97/100** — only the caveat-check criterion shows a measurable gap; lift on this scenario will be marginal but it's the only test for the cross-skill handoff added in 0.8.0
+
 ## [0.8.0] — 2026-05-26
 
 The Kotlin API design guidance lands as first-class plugin content — embedded in a skill, not a pointer to an external document — so the agent carries the guidance itself, not a link to go read. It lives in a skill rather than `alwaysApply` rules on purpose: every always-on rule costs context budget on every prompt, and API-design judgement is situational. The thirteen always-on rules remain the minimal high-leverage set.
