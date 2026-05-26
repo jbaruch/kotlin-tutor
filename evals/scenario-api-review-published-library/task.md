@@ -13,6 +13,3 @@ Perform a full API review of the file and write your findings to `api-review.md`
 - Identify which concerns apply given the library's exposure level
 - Cover all relevant review dimensions for this surface
 - Include any tooling or process recommendations that would reduce the risk of accidental breaking changes in future releases
-- State clearly how breaking changes should be handled rather than making those changes yourself
-
-Format each finding as a single line pointing to its location in the source file.
