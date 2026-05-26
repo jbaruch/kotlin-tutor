@@ -1,5 +1,5 @@
 {
-  "context": "Tests whether the agent correctly applies kotlin-api-review Steps 2-7 and 9 to an internal API: flagging boolean arguments, exposed mutable state, inconsistent error handling, missing test doubles, missing toString, and missing KDoc, while proposing correct alternatives.",
+  "context": "Tests whether the agent correctly applies kotlin-api-review Steps 2-7, 9, and 10 to an internal API: flagging boolean arguments, exposed mutable state, inconsistent error handling, missing test doubles, missing toString, and missing KDoc, proposing correct alternatives, and emitting findings in the prescribed file:line report format.",
   "type": "weighted_checklist",
   "checklist": [
     {

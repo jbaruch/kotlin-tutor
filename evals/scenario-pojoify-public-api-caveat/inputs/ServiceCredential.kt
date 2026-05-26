@@ -1,10 +1,10 @@
 package com.integrations.auth
 
 class ServiceCredential {
-    var serviceId: String? = null
-    var clientSecret: String? = null
-    var accessToken: String? = null
-    var expiresAtEpochSeconds: Long = 0L
+    private var serviceId: String? = null
+    private var clientSecret: String? = null
+    private var accessToken: String? = null
+    private var expiresAtEpochSeconds: Long = 0L
 
     fun getServiceId(): String? = serviceId
     fun setServiceId(value: String?) { serviceId = value }
