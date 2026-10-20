@@ -3,13 +3,10 @@
 *.tmp
 *.log
 
-# Tessl runtime
-.tessl/
 
 # IDE
 .idea/
 *.iml
-.vscode/
 
 # Local config
 .env
